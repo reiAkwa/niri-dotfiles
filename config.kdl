@@ -624,9 +624,21 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
+    // 截图：本机键盘没有 Print 键，所以用 Mod(Super) 组合键。
+    // Mod+S：框选区域，直接存到 ~/Pictures/Screenshots（niri 内置，无需额外软件）
+    Mod+S hotkey-overlay-title="截图：框选区域" { screenshot; }
+    // Mod+Ctrl+Shift+S：整屏截图，直接存盘
+    Mod+Ctrl+Shift+S hotkey-overlay-title="截图：整个屏幕" { screenshot-screen; }
+    // Mod+Ctrl+S：框选后复制到剪贴板，可直接粘贴（需要 grim + slurp）
+    Mod+Ctrl+S hotkey-overlay-title="截图：框选并复制" { spawn-sh "grim -g \"$(slurp)\" - | wl-copy"; }
+    // Mod+Shift+S：框选后用 swappy 标注（需要 grim + slurp + swappy）
+    Mod+Shift+S hotkey-overlay-title="截图：框选并标注" { spawn-sh "grim -g \"$(slurp)\" - | swappy -f -"; }
+
+    // 如果以后接上带 Print 键的键盘，这几行依然有效。
     Print { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
+    // Mod+P { spawn "flameshot"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
