@@ -269,8 +269,15 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
+
+// IME
 spawn-at-startup "fcitx5"
+
+// Notification
 spawn-at-startup "mako"
+
+// Wallpaper
+spawn-at-startup "swaybg" "-i" "/home/reiakwa/wallpapers/1-1.jpg" "-m" "fill"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
