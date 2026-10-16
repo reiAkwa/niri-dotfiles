@@ -276,6 +276,10 @@ spawn-at-startup "fcitx5"
 // Notification
 spawn-at-startup "mako"
 
+// Clipboard history: 常驻监听剪贴板，把每次复制的内容存进 cliphist 数据库。
+// 配合下面的 Mod+P 调用 fuzzel 选择历史记录。
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+
 // Wallpaper
 spawn-at-startup "swaybg" "-i" "/home/reiakwa/wallpapers/1-1.jpg" "-m" "fill"
 
@@ -639,6 +643,10 @@ binds {
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
     // Mod+P { spawn "flameshot"; }
+
+    // 剪贴板历史：cliphist + fuzzel。
+    // cliphist list 列出历史 → fuzzel 选择 → cliphist decode 解码 → wl-copy 写回剪贴板。
+    Mod+P hotkey-overlay-title="剪贴板历史 (cliphist + fuzzel)" { spawn-sh "cliphist list | fuzzel --dmenu --prompt 'Clipboard  > ' | cliphist decode | wl-copy"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
