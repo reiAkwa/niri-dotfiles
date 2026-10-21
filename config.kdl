@@ -272,7 +272,7 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts the Quickshell bar migrated from Waybar.
-spawn-at-startup "qs" "-c" "migrate_from_waybar"
+spawn-at-startup "qs" "-c" "niri"
 
 // IME
 spawn-at-startup "fcitx5"
