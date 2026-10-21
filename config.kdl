@@ -277,8 +277,9 @@ spawn-at-startup "qs" "-c" "migrate_from_waybar"
 // IME
 spawn-at-startup "fcitx5"
 
-// Notification
-spawn-at-startup "mako"
+// Notification: handled by Quickshell (migrate_from_waybar). Only one process
+// can own org.freedesktop.Notifications, so do not start mako concurrently.
+// spawn-at-startup "mako"
 
 // Clipboard history: 常驻监听剪贴板，把每次复制的内容存进 cliphist 数据库。
 // 配合下面的 Mod+P 调用 rofi 选择历史记录。
@@ -387,7 +388,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
-    Mod+D hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
+    Mod+Space hotkey-overlay-title="Run an Application: rofi" { spawn "rofi" "-show" "drun"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
@@ -480,12 +481,12 @@ binds {
     // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
     // ...
 
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
+    // Mod+Page_Down      { focus-workspace-down; }
+    // Mod+Page_Up        { focus-workspace-up; }
     Mod+U              { focus-workspace-down; }
     Mod+I              { focus-workspace-up; }
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
+    // Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
+    // Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
     Mod+Ctrl+U         { move-column-to-workspace-down; }
     Mod+Ctrl+I         { move-column-to-workspace-up; }
 
@@ -493,8 +494,8 @@ binds {
     // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
     // ...
 
-    Mod+Shift+Page_Down { move-workspace-down; }
-    Mod+Shift+Page_Up   { move-workspace-up; }
+    // Mod+Shift+Page_Down { move-workspace-down; }
+    // Mod+Shift+Page_Up   { move-workspace-up; }
     Mod+Shift+U         { move-workspace-down; }
     Mod+Shift+I         { move-workspace-up; }
 
@@ -616,7 +617,7 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
+    Mod+Shift+T       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
@@ -650,7 +651,7 @@ binds {
 
     // 剪贴板历史：cliphist + rofi。
     // cliphist list 列出历史 → rofi 选择 → cliphist decode 解码 → wl-copy 写回剪贴板。
-    Mod+P hotkey-overlay-title="剪贴板历史 (cliphist + rofi)" { spawn-sh "cliphist list | rofi -dmenu -p 'Clipboard  > ' | cliphist decode | wl-copy"; }
+    Mod+V hotkey-overlay-title="剪贴板历史 (cliphist + rofi)" { spawn-sh "cliphist list | rofi -dmenu -p 'Clipboard  > ' | cliphist decode | wl-copy"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
