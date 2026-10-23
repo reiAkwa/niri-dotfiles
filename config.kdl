@@ -388,7 +388,6 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
-    Mod+Space repeat=false hotkey-overlay-title="Spotlight: applications" { spawn "qs" "-c" "niri" "ipc" "call" "spotlight" "toggle"; }
     Alt+Space repeat=false hotkey-overlay-title="Spotlight: applications" { spawn "qs" "-c" "niri" "ipc" "call" "spotlight" "toggle"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: Quickshell" { spawn "/home/reiakwa/.config/quickshell/niri/lock.sh"; }
 
