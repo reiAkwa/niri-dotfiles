@@ -296,7 +296,7 @@ spawn-at-startup "swaybg" "-i" "/home/reiakwa/wallpapers/1-1.jpg" "-m" "fill"
 //   - after 10 minutes (600s): turn the monitors off (DPMS)
 //   - resume: turn the monitors back on
 //   - before-sleep: lock as well, so the screen is never left unlocked across a suspend
-spawn-at-startup "swayidle" "-w" "timeout" "300" "swaylock -f" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors" "before-sleep" "swaylock -f"
+spawn-at-startup "swayidle" "-w" "timeout" "300" "/home/reiakwa/.config/quickshell/niri/lock.sh" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors" "before-sleep" "/home/reiakwa/.config/quickshell/niri/lock.sh"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -390,7 +390,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+Space repeat=false hotkey-overlay-title="Spotlight: applications" { spawn "qs" "-c" "niri" "ipc" "call" "spotlight" "toggle"; }
     Alt+Space repeat=false hotkey-overlay-title="Spotlight: applications" { spawn "qs" "-c" "niri" "ipc" "call" "spotlight" "toggle"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
+    Super+Alt+L hotkey-overlay-title="Lock the Screen: Quickshell" { spawn "/home/reiakwa/.config/quickshell/niri/lock.sh"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
