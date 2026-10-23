@@ -1,0 +1,31 @@
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See binds.kdl for more spawn examples.
+
+// This line starts the Quickshell bar migrated from Waybar.
+spawn-at-startup "qs" "-c" "niri"
+
+// IME
+spawn-at-startup "fcitx5"
+
+// Notification: handled by Quickshell (migrate_from_waybar). Only one process
+// can own org.freedesktop.Notifications, so do not start mako concurrently.
+// spawn-at-startup "mako"
+
+// Clipboard history: 常驻监听剪贴板，把每次复制的内容存进 cliphist 数据库。
+// 配合 binds.kdl 中 Mod+V 的 rofi 选择历史记录（Mod+V → rofi → cliphist decode → wl-copy）。
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+
+// Wallpaper
+spawn-at-startup "swaybg" "-i" "/home/reiakwa/wallpapers/1-1.jpg" "-m" "fill"
+
+// To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
+// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+
+// Idle management with swayidle:
+//   - after 5 minutes (300s): lock the screen
+//   - after 10 minutes (600s): turn the monitors off (DPMS)
+//   - resume: turn the monitors back on
+//   - before-sleep: lock as well, so the screen is never left unlocked across a suspend
+spawn-at-startup "swayidle" "-w" "timeout" "300" "/home/reiakwa/.config/quickshell/niri/lock.sh" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors" "before-sleep" "/home/reiakwa/.config/quickshell/niri/lock.sh"
