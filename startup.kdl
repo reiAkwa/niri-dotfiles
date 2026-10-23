@@ -14,7 +14,7 @@ spawn-at-startup "fcitx5"
 // spawn-at-startup "mako"
 
 // Clipboard history: 常驻监听剪贴板，把每次复制的内容存进 cliphist 数据库。
-// 配合 binds.kdl 中 Mod+V 的 rofi 选择历史记录（Mod+V → rofi → cliphist decode → wl-copy）。
+// 配合 binds.kdl 中 Mod+V 的 Quickshell 面板选择历史记录（Mod+V → Quickshell → cliphist decode | wl-copy）。
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 
 // Wallpaper

@@ -278,9 +278,9 @@ binds {
     Alt+Print { screenshot-window; }
     // Mod+P { spawn "flameshot"; }
 
-    // 剪贴板历史：cliphist + rofi。
-    // cliphist list 列出历史 → rofi 选择 → cliphist decode 解码 → wl-copy 写回剪贴板。
-    Mod+V hotkey-overlay-title="剪贴板历史 (cliphist + rofi)" { spawn-sh "cliphist list | rofi -dmenu -p 'Clipboard  > ' | cliphist decode | wl-copy"; }
+    // 剪贴板历史：cliphist 负责存储，Quickshell 负责选择界面。
+    // cliphist list → Quickshell 面板 → cliphist decode | wl-copy 写回剪贴板。
+    Mod+V repeat=false hotkey-overlay-title="剪贴板历史" { spawn "qs" "-c" "niri" "ipc" "call" "clipboard" "toggle"; }
 
     // Applications such as remote-desktop clients and software KVM switches may
     // request that niri stops processing the keyboard shortcuts defined here
