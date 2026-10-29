@@ -3,8 +3,12 @@
 // which may be more convenient to use.
 // See binds.kdl for more spawn examples.
 
-// This line starts the Quickshell bar migrated from Waybar.
-spawn-at-startup "qs" "-c" "niri"
+// Quickshell (bar, launcher, notifications, lock screen) runs as the user unit
+// qs.service instead of spawn-at-startup. systemd restarts it if it dies, keeps
+// an app-scope OOM kill from taking it down, and relock.sh re-locks the session
+// if the shell died while the screen was locked. Enable it with:
+//   systemctl --user enable qs.service
+// It is pulled in through niri.service.wants/qs.service.
 
 // IME
 spawn-at-startup "fcitx5"
@@ -26,6 +30,8 @@ spawn-at-startup "swaybg" "-i" "/home/reiakwa/wallpapers/1-1.jpg" "-m" "fill"
 // Idle management with swayidle:
 //   - after 5 minutes (300s): lock the screen
 //   - after 10 minutes (600s): turn the monitors off (DPMS)
-//   - resume: turn the monitors back on
+//   - resume: turn the monitors back on, then lock again (replacing a locker
+//     that died while suspended); powering on first also lets niri satisfy the
+//     session-lock blank-frame requirement
 //   - before-sleep: lock as well, so the screen is never left unlocked across a suspend
-spawn-at-startup "swayidle" "-w" "timeout" "300" "/home/reiakwa/.config/quickshell/niri/lock.sh" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors" "before-sleep" "/home/reiakwa/.config/quickshell/niri/lock.sh"
+spawn-at-startup "swayidle" "-w" "timeout" "300" "/home/reiakwa/.config/quickshell/niri/lock.sh" "timeout" "600" "niri msg action power-off-monitors" "resume" "niri msg action power-on-monitors; /home/reiakwa/.config/quickshell/niri/lock.sh" "before-sleep" "/home/reiakwa/.config/quickshell/niri/lock.sh"
